@@ -1,6 +1,7 @@
 extends Node3D
 
 var high_score := 0
+var last_spawned := -1
 var score := 0
 
 @onready var animation_player_0: AnimationPlayer = $Chipmunk/AnimationPlayer
@@ -8,6 +9,7 @@ var score := 0
 @onready var animation_player_2: AnimationPlayer = $Chipmunk_002/AnimationPlayer
 @onready var animation_player_3: AnimationPlayer = $Chipmunk_003/AnimationPlayer
 @onready var animation_player_4: AnimationPlayer = $Chipmunk_004/AnimationPlayer
+@onready var animation_players: Array[AnimationPlayer] = [animation_player_0, animation_player_1, animation_player_2, animation_player_3, animation_player_4]
 @onready var bonus_tickets_label: Label3D = $Atari/BonusTickets
 @onready var high_score_label: Label3D = $Atari/HighScore
 @onready var hit: AudioStreamPlayer = $Hit
@@ -91,35 +93,31 @@ func _on_game_timer_timeout() -> void:
 	if score > high_score:
 		high_score = score
 		high_score_label.text = str(high_score)
+		$"../Camera3D/HighScoreUI/Panel/Score".text = str(high_score)
 		$"../Camera3D/HighScoreUI".show()
 	else:
 		$"../Camera3D/StartUI".show()
 
 
 func _on_spawn_timer_timeout() -> void:
-	# Get a list of availible chipmunks
-	var availible_chipmunks = []
-	if animation_player_0.current_animation != "action":
-		availible_chipmunks.append(0)
-	if animation_player_1.current_animation != "action":
-		availible_chipmunks.append(1)
-	if animation_player_2.current_animation != "action":
-		availible_chipmunks.append(2)
-	if animation_player_3.current_animation != "action":
-		availible_chipmunks.append(3)
-	if animation_player_4.current_animation != "action":
-		availible_chipmunks.append(4)
-	# Pick a chipmunk
-	var random_number = randi_range(0, 5)
-	# Play that chipmunk's "action" animation
-	if random_number == 0:
-		animation_player_0.play("action")
-	elif random_number == 1:
-		animation_player_1.play("action")
-	elif random_number == 2:
-		animation_player_2.play("action")
-	elif random_number == 3:
-		animation_player_3.play("action")
-	elif random_number == 4:
-		animation_player_4.play("action")
+	var random_number: int
+	# Avoid spawning in the same hole twice in a row
+	while true:
+		random_number = randi_range(0, animation_players.size() - 1)
+		if random_number != last_spawned:
+			break
+	# Play the spawn animation for the randomly selected chipmunk
+	
+	animation_players[random_number].play("action")
+	last_spawned = random_number
+
+	# Calculate how much time is left (0.0 to 1.0, where 1.0 = full time remaining)
+	var time_remaining_ratio = game_timer.time_left / game_timer.wait_time
+
+	# Base timing gets faster as time runs out
+	# Starts at ~1.5 seconds, gets as fast as ~0.3 seconds
+	var base_time = lerp(0.3, 1.5, time_remaining_ratio)
+
+	# Add some variation (±30%)
+	spawn_timer.wait_time = randf_range(base_time * 0.7, base_time * 1.3)
 	spawn_timer.start()
