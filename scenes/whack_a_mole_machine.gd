@@ -90,7 +90,7 @@ func _on_game_timer_timeout() -> void:
 	animation_player_4.play("RESET")
 	if score > high_score:
 		high_score = score
-		$"../Camera3D/HighScoreUI/Panel/Score".text = str(high_score)
+		high_score_label.text = str(high_score)
 		$"../Camera3D/HighScoreUI".show()
 	else:
 		$"../Camera3D/StartUI".show()
