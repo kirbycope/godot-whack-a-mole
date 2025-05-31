@@ -1,10 +1,17 @@
-[gd_scene load_steps=53 format=4 uid="uid://bao0i2g4q5l2x"]
+[gd_scene load_steps=63 format=4 uid="uid://bao0i2g4q5l2x"]
 
 [ext_resource type="Texture2D" uid="uid://cjwk5el665oab" path="res://assets/models/arcade_machine/Textures/oiled.png" id="1_55i1k"]
+[ext_resource type="Script" uid="uid://dxntd484jvyhs" path="res://scenes/whack_a_mole_machine.gd" id="1_rbqn2"]
 [ext_resource type="Texture2D" uid="uid://3hf4w71roxxl" path="res://assets/models/arcade_machine/Textures/color palette 3.png" id="2_rbqn2"]
 [ext_resource type="Texture2D" uid="uid://bpesfvvpdryf5" path="res://assets/models/arcade_machine/Textures/Side.png" id="3_spqh4"]
 [ext_resource type="Texture2D" uid="uid://bgarwdxmssfs2" path="res://assets/models/arcade_machine/Textures/oiled_bluredwithtext.png" id="4_2lahi"]
 [ext_resource type="Texture2D" uid="uid://da8ng78iqm35j" path="res://assets/models/arcade_machine/Textures/Atarispeaker.png" id="5_d7gyj"]
+[ext_resource type="AudioStream" uid="uid://gq1yhoj6yxot" path="res://assets/sounds/STGR_Lose_Reaction.wav" id="7_d7gyj"]
+[ext_resource type="FontFile" uid="uid://cycs4puxp2wq6" path="res://assets/fonts/Segment7Standard.otf" id="7_gbkdb"]
+[ext_resource type="AudioStream" uid="uid://cx2plvgtkitcj" path="res://assets/sounds/MUSC_Reaction_Theme_Loop.wav" id="8_gbkdb"]
+[ext_resource type="AudioStream" uid="uid://lt0e03dp05g5" path="res://assets/sounds/STGR_Win_Reaction.wav" id="9_okgwi"]
+[ext_resource type="AudioStream" uid="uid://bkympyrds3kxg" path="res://assets/sounds/114682__qat__whack01.wav" id="11_li531"]
+[ext_resource type="AudioStream" uid="uid://cgdyiwcw141f" path="res://assets/sounds/114685__qat__whack04.wav" id="12_s02tw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n2n46"]
 resource_name = "Screen"
@@ -258,6 +265,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_eftig")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_okgwi"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_li531"]
+material = SubResource("StandardMaterial3D_okgwi")
+size = Vector2(0.1, 0.05)
+orientation = 2
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_al5qj"]
 resource_name = "Hair"
 cull_mode = 2
@@ -304,6 +319,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_4ojl8")
 
+[sub_resource type="Animation" id="Animation_li531"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.553633, 2.15, 0.842293)]
+}
+
 [sub_resource type="Animation" id="Animation_okgwi"]
 resource_name = "action"
 length = 2.0
@@ -320,26 +350,14 @@ tracks/0/keys = {
 "values": [Vector3(-0.553633, 2.15, 0.842293), Vector3(-0.554, 2, 0.842), Vector3(-0.554, 2.5, 0.842), Vector3(-0.554, 2.4, 0.842), Vector3(-0.554, 2.5, 0.842), Vector3(-0.553633, 2.15, 0.842293)]
 }
 
-[sub_resource type="Animation" id="Animation_li531"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.553633, 2.15, 0.842293)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s02tw"]
 _data = {
 &"RESET": SubResource("Animation_li531"),
 &"action": SubResource("Animation_okgwi")
 }
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_spqh4"]
+radius = 0.9
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_1bcyr"]
 _surfaces = [{
@@ -375,6 +393,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1bcyr")
 
+[sub_resource type="Animation" id="Animation_meow1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.11, 2.15, 0.122)]
+}
+
 [sub_resource type="Animation" id="Animation_s02tw"]
 resource_name = "action"
 length = 2.0
@@ -389,21 +422,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(-1.11, 2.15, 0.122), Vector3(-1.11, 2, 0.122), Vector3(-1.11, 2.5, 0.122), Vector3(-1.11, 2.4, 0.122), Vector3(-1.11, 2.5, 0.122), Vector3(-1.11, 2.15, 0.122)]
-}
-
-[sub_resource type="Animation" id="Animation_meow1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1.11, 2.15, 0.122)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3pgrl"]
@@ -446,6 +464,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_e47sr")
 
+[sub_resource type="Animation" id="Animation_dyi22"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.001, 2.15, 0.122)]
+}
+
 [sub_resource type="Animation" id="Animation_3pgrl"]
 resource_name = "action"
 length = 2.0
@@ -460,21 +493,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(-0.001, 2.15, 0.122), Vector3(-0.001, 2, 0.122), Vector3(-0.001, 2.5, 0.122), Vector3(-0.001, 2.4, 0.122), Vector3(-0.001, 2.5, 0.122), Vector3(-0.001, 2.15, 0.122)]
-}
-
-[sub_resource type="Animation" id="Animation_dyi22"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.001, 2.15, 0.122)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f5360"]
@@ -517,6 +535,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_hr4oc")
 
+[sub_resource type="Animation" id="Animation_525qx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.107, 2.15, 0.122)]
+}
+
 [sub_resource type="Animation" id="Animation_f5360"]
 resource_name = "action"
 length = 2.0
@@ -531,21 +564,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(1.107, 2.15, 0.122), Vector3(1.107, 2, 0.122), Vector3(1.107, 2.5, 0.122), Vector3(1.107, 2.4, 0.122), Vector3(1.107, 2.5, 0.122), Vector3(1.107, 2.15, 0.122)]
-}
-
-[sub_resource type="Animation" id="Animation_525qx"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.107, 2.15, 0.122)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0j1be"]
@@ -588,6 +606,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_aw73k")
 
+[sub_resource type="Animation" id="Animation_6nasb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.554089, 2.15, 0.846729)]
+}
+
 [sub_resource type="Animation" id="Animation_0j1be"]
 resource_name = "action"
 length = 2.0
@@ -602,21 +635,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0.554089, 2.15, 0.846729), Vector3(0.554, 2, 0.847), Vector3(0.554, 2.5, 0.847), Vector3(0.554, 2.4, 0.847), Vector3(0.554, 2.5, 0.847), Vector3(0.554089, 2.15, 0.846729)]
-}
-
-[sub_resource type="Animation" id="Animation_6nasb"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.554089, 2.15, 0.846729)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_01806"]
@@ -820,22 +838,6 @@ tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = PackedFloat32Array(0, 1, 1.10693, 2.14789, 0.121557)
 
-[sub_resource type="Animation" id="Animation_55i1k"]
-resource_name = "chipmunk_000"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Chipmunk:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.7, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(-0.553633, 2.15, 0.842293), Vector3(-0.554, 2, 0.842), Vector3(-0.554, 2.5, 0.842), Vector3(-0.554, 2.4, 0.842), Vector3(-0.554, 2.5, 0.842), Vector3(-0.553633, 2.15, 0.842293)]
-}
-
 [sub_resource type="Animation" id="Animation_rbqn2"]
 length = 0.001
 tracks/0/type = "value"
@@ -897,6 +899,22 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0.554089, 2.15, 0.846729)]
+}
+
+[sub_resource type="Animation" id="Animation_55i1k"]
+resource_name = "chipmunk_000"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Chipmunk:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.7, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.553633, 2.15, 0.842293), Vector3(-0.554, 2, 0.842), Vector3(-0.554, 2.5, 0.842), Vector3(-0.554, 2.4, 0.842), Vector3(-0.554, 2.5, 0.842), Vector3(-0.553633, 2.15, 0.842293)]
 }
 
 [sub_resource type="Animation" id="Animation_spqh4"]
@@ -980,6 +998,7 @@ _data = {
 
 [node name="WhackAMoleMachine" type="Node3D"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+script = ExtResource("1_rbqn2")
 
 [node name="Atari" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_idn6d")
@@ -996,6 +1015,45 @@ metadata/extras = {
 }
 }
 
+[node name="BonusTickets" type="Label3D" parent="Atari"]
+transform = Transform3D(5, 0, 0, 0, 4.99281, 0.268128, 0, -0.268128, 4.99281, -0.913, 3.541, -0.44)
+pixel_size = 0.001
+outline_modulate = Color(1, 0, 0, 1)
+text = "0.0.0"
+font = ExtResource("7_gbkdb")
+font_size = 58
+outline_size = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Atari/BonusTickets"]
+transform = Transform3D(1, 0, 0, 0, 0.999714, -0.0239786, 0, 0.0239786, 0.999714, 0, 0.0055117, -0.000717986)
+mesh = SubResource("PlaneMesh_li531")
+
+[node name="YourScore" type="Label3D" parent="Atari"]
+transform = Transform3D(5, 0, 0, 0, 4.99281, 0.268128, 0, -0.268128, 4.99281, -0.037, 3.541, -0.44)
+pixel_size = 0.001
+outline_modulate = Color(1, 0, 0, 1)
+text = "0.0.0"
+font = ExtResource("7_gbkdb")
+font_size = 58
+outline_size = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Atari/YourScore"]
+transform = Transform3D(1, 0, 0, 0, 0.999714, -0.0239786, 0, 0.0239786, 0.999714, 0, 0.0055117, -0.000717986)
+mesh = SubResource("PlaneMesh_li531")
+
+[node name="HighScore" type="Label3D" parent="Atari"]
+transform = Transform3D(5, 0, 0, 0, 4.99281, 0.268128, 0, -0.268128, 4.99281, 0.827, 3.541, -0.44)
+pixel_size = 0.001
+outline_modulate = Color(1, 0, 0, 1)
+text = "0.0.0"
+font = ExtResource("7_gbkdb")
+font_size = 58
+outline_size = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Atari/HighScore"]
+transform = Transform3D(1, 0, 0, 0, 0.999714, -0.0239786, 0, 0.0239786, 0.999714, 0, 0.0055117, -0.000717986)
+mesh = SubResource("PlaneMesh_li531")
+
 [node name="Chipmunk" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.252985, 0, 0, 0, 0.252985, 0, 0, 0, 0.252985, -0.553633, 2.15, 0.842293)
 mesh = SubResource("ArrayMesh_o6snm")
@@ -1011,6 +1069,12 @@ libraries = {
 &"": SubResource("AnimationLibrary_s02tw")
 }
 
+[node name="Area3D0" type="Area3D" parent="Chipmunk"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Chipmunk/Area3D0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.41058, 0)
+shape = SubResource("CapsuleShape3D_spqh4")
+
 [node name="Chipmunk_001" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.252985, 0, 0, 0, 0.252985, 0, 0, 0, 0.252985, -1.11, 2.15, 0.122)
 mesh = SubResource("ArrayMesh_hq11g")
@@ -1025,6 +1089,12 @@ metadata/extras = {
 libraries = {
 &"": SubResource("AnimationLibrary_3pgrl")
 }
+
+[node name="Area3D1" type="Area3D" parent="Chipmunk_001"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Chipmunk_001/Area3D1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.411, 0)
+shape = SubResource("CapsuleShape3D_spqh4")
 
 [node name="Chipmunk_002" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.252985, 0, 0, 0, 0.252985, 0, 0, 0, 0.252985, -0.001, 2.15, 0.122)
@@ -1045,6 +1115,12 @@ libraries = {
 &"": SubResource("AnimationLibrary_f5360")
 }
 
+[node name="Area3D2" type="Area3D" parent="Chipmunk_002"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Chipmunk_002/Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.411, 0)
+shape = SubResource("CapsuleShape3D_spqh4")
+
 [node name="Chipmunk_003" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.252985, 0, 0, 0, 0.252985, 0, 0, 0, 0.252985, 1.107, 2.15, 0.122)
 mesh = SubResource("ArrayMesh_jomas")
@@ -1059,6 +1135,12 @@ metadata/extras = {
 libraries = {
 &"": SubResource("AnimationLibrary_0j1be")
 }
+
+[node name="Area3D3" type="Area3D" parent="Chipmunk_003"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Chipmunk_003/Area3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.411, 0)
+shape = SubResource("CapsuleShape3D_spqh4")
 
 [node name="Chipmunk_004" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.252985, 0, 0, 0, 0.252985, 0, 0, 0, 0.252985, 0.554089, 2.15, 0.846729)
@@ -1075,7 +1157,43 @@ libraries = {
 &"": SubResource("AnimationLibrary_01806")
 }
 
+[node name="Area3D4" type="Area3D" parent="Chipmunk_004"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Chipmunk_004/Area3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.411, 0)
+shape = SubResource("CapsuleShape3D_spqh4")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_31irb")
 }
+
+[node name="LoseReaction" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_d7gyj")
+
+[node name="ReactionTheme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_gbkdb")
+
+[node name="WinReaction" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_okgwi")
+
+[node name="GameTimer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
+[node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_li531")
+
+[node name="Miss" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_s02tw")
+
+[connection signal="input_event" from="Chipmunk/Area3D0" to="." method="_on_area_3d_0_input_event"]
+[connection signal="input_event" from="Chipmunk_001/Area3D1" to="." method="_on_area_3d_1_input_event"]
+[connection signal="input_event" from="Chipmunk_002/Area3D2" to="." method="_on_area_3d_2_input_event"]
+[connection signal="input_event" from="Chipmunk_003/Area3D3" to="." method="_on_area_3d_3_input_event"]
+[connection signal="input_event" from="Chipmunk_004/Area3D4" to="." method="_on_area_3d_4_input_event"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Whack-a-mole"
+config/name="Whack-a-Mole"
 run/main_scene="uid://k5eem4pva7pg"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
