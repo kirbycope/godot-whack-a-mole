@@ -3,6 +3,7 @@ extends Node3D
 @onready var high_score_ui: Control = $Camera3D/HighScoreUI
 @onready var leaderboard_ui: LeaderboardUI = $Camera3D/LeaderboardUI
 @onready var player_name: LineEdit = $Camera3D/HighScoreUI/Panel/Name
+@onready var quit_ui: ColorRect = $Camera3D/QuitUI
 @onready var start_ui: Control = $Camera3D/StartUI
 @onready var whack_a_mole: Node3D = $WhackAMoleMachine
 
@@ -22,6 +23,7 @@ func _on_back_button_pressed() -> void:
 
 ## Start > 'Quit' button
 func _on_quit_button_pressed() -> void:
+	quit_ui.show()
 	get_tree().quit()
 
 

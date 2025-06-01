@@ -223,40 +223,52 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -90.0
-offset_top = -80.0
-offset_right = 90.0
-offset_bottom = 80.0
+offset_left = -180.0
+offset_top = -160.0
+offset_right = 180.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="Camera3D/HighScoreUI/Panel"]
 layout_mode = 0
-offset_right = 180.0
-offset_bottom = 40.0
+offset_right = 360.0
+offset_bottom = 80.0
 
 [node name="Label" type="Label" parent="Camera3D/HighScoreUI/Panel/Panel"]
-layout_mode = 0
-offset_right = 180.0
-offset_bottom = 34.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -121.5
+offset_top = -22.5
+offset_right = 121.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
 text = "New High Score"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="Camera3D/HighScoreUI/Panel"]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 48.0
-offset_right = 84.0
-offset_bottom = 71.0
+offset_left = 56.0
+offset_top = 104.0
+offset_right = 150.0
+offset_bottom = 149.0
+theme_override_font_sizes/font_size = 32
 text = "Score:"
 
 [node name="Score" type="LineEdit" parent="Camera3D/HighScoreUI/Panel"]
 layout_mode = 0
-offset_left = 88.0
-offset_top = 46.0
-offset_right = 157.0
-offset_bottom = 77.0
+offset_left = 184.0
+offset_top = 102.0
+offset_right = 312.0
+offset_bottom = 155.0
+theme_override_font_sizes/font_size = 32
 alignment = 1
 max_length = 3
 editable = false
@@ -264,41 +276,73 @@ emoji_menu_enabled = false
 
 [node name="NameLabel" type="Label" parent="Camera3D/HighScoreUI/Panel"]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 84.0
-offset_right = 81.0
-offset_bottom = 107.0
+offset_left = 56.0
+offset_top = 180.0
+offset_right = 157.0
+offset_bottom = 225.0
+theme_override_font_sizes/font_size = 32
 text = "Name:"
 
 [node name="Name" type="LineEdit" parent="Camera3D/HighScoreUI/Panel"]
 layout_mode = 0
-offset_left = 88.0
-offset_top = 80.0
-offset_right = 157.0
-offset_bottom = 111.0
+offset_left = 184.0
+offset_top = 176.0
+offset_right = 312.0
+offset_bottom = 229.0
+theme_override_font_sizes/font_size = 32
 alignment = 1
 max_length = 3
 emoji_menu_enabled = false
 
 [node name="SubmitButton" type="Button" parent="Camera3D/HighScoreUI/Panel"]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 120.0
-offset_right = 87.0
-offset_bottom = 151.0
+offset_left = 56.0
+offset_top = 248.0
+offset_right = 173.0
+offset_bottom = 293.0
+theme_override_font_sizes/font_size = 32
 theme_override_styles/hover = SubResource("StyleBoxFlat_a8y0u")
 theme_override_styles/normal = SubResource("StyleBoxFlat_jkv2x")
 text = "Submit"
 
 [node name="BackButton" type="Button" parent="Camera3D/HighScoreUI/Panel"]
 layout_mode = 0
-offset_left = 96.0
-offset_top = 120.0
-offset_right = 159.0
-offset_bottom = 151.0
+offset_left = 192.0
+offset_top = 248.0
+offset_right = 309.0
+offset_bottom = 293.0
+theme_override_font_sizes/font_size = 32
 theme_override_styles/hover = SubResource("StyleBoxFlat_jbj1t")
 theme_override_styles/normal = SubResource("StyleBoxFlat_muem4")
 text = "Back"
+
+[node name="QuitUI" type="ColorRect" parent="Camera3D"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="Camera3D/QuitUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.5
+offset_top = -70.5
+offset_right = 175.5
+offset_bottom = 70.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Game ended.
+
+Refresh to restart."
+horizontal_alignment = 1
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_tefeu")
